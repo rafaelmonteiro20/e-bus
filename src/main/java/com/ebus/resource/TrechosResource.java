@@ -1,6 +1,5 @@
 package com.ebus.resource;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,10 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ebus.model.Trecho;
 import com.ebus.repository.TrechoRepository;
+import com.ebus.util.RecursoCriado;
 
 @RestController
 @RequestMapping("/trechos")
@@ -28,10 +27,8 @@ public class TrechosResource {
 	@PostMapping
 	public ResponseEntity<?> salva(@Valid @RequestBody Trecho trecho) {
 		trecho = trechoRepository.save(trecho);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-			.buildAndExpand(trecho.getId()).toUri();
-	
-		return ResponseEntity.created(location).body(trecho);
+		return ResponseEntity.created(RecursoCriado.location(trecho.getId()))
+					.body(trecho);
 	}
 	
 	@GetMapping
