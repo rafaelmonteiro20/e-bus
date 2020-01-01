@@ -1,12 +1,14 @@
-create table trechos (
-	id_trecho int not null,
-	id_cidade_origem int not null,
-	id_cidade_destino int not null,
-	distancia real not null check (distancia > 0),
+CREATE SEQUENCE trechos_sequence;
+
+CREATE TABLE trechos (
+	id_trecho INT NOT NULL,
+	id_cidade_origem INT NOT NULL,
+	id_cidade_destino INT NOT NULL,
+	distancia DECIMAL NOT NULL CHECK (distancia > 0),
 	
-	constraint pk_trecho primary key (id_trecho),
-	constraint fk_trechos_cidade_origem foreign key (id_cidade_origem) references cidades (id_cidade),
-	constraint fk_trechos_cidade_destino foreign key (id_cidade_destino) references cidades (id_cidade)
+	CONSTRAINT pk_trechos PRIMARY KEY (id_trecho),
+	CONSTRAINT fk_trechos_cidade_origem FOREIGN KEY (id_cidade_origem) REFERENCES cidades (id_cidade),
+	CONSTRAINT fk_trechos_cidade_destino FOREIGN KEY (id_cidade_destino) REFERENCES cidades (id_cidade)
 );
 
-create sequence seq_trecho_id;
+ALTER TABLE trechos ALTER COLUMN id_trecho SET DEFAULT NEXTVAL('trechos_sequence');

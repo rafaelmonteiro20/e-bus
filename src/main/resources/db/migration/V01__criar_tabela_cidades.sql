@@ -1,9 +1,11 @@
-create table cidades (
-	id_cidade int not null,
-	nome varchar(40) not null,
-	estado char(2) not null,
+CREATE SEQUENCE cidades_sequence;
+
+CREATE TABLE cidades (
+	id_cidade INT NOT NULL,
+	nome VARCHAR(40) NOT NULL,
+	estado CHAR(2) NOT NULL,
 	
-	constraint pk_cidade primary key (id_cidade)
+	CONSTRAINT pk_cidades PRIMARY KEY (id_cidade)
 );
 
-create sequence seq_cidade_id;
+ALTER TABLE cidades ALTER COLUMN id_cidade SET DEFAULT NEXTVAL('cidades_sequence');

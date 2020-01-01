@@ -11,14 +11,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "trechos")
-@SequenceGenerator(name = "seq_trecho_id", sequenceName = "seq_trecho_id", allocationSize = 1)
+@SequenceGenerator(name = "trechos_sequence", sequenceName = "trechos_sequence", allocationSize = 1)
 public class Trecho {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_trecho_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trechos_sequence")
 	@Column(name = "id_trecho")
 	private Integer id;
 	
@@ -30,11 +32,17 @@ public class Trecho {
 	@JoinColumn(name = "id_cidade_destino")
 	private Cidade destino;
 	
+	@NotNull
+	@DecimalMin("10.0")
 	private BigDecimal distancia;
 	
 	
 	public Trecho() {
 
+	}
+	
+	public Trecho(Integer id) {
+		this.id = id;
 	}
 
 	public Trecho(Cidade origem, Cidade destino, BigDecimal distancia) {
@@ -45,10 +53,6 @@ public class Trecho {
 
 	public Integer getId() {
 		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Cidade getOrigem() {

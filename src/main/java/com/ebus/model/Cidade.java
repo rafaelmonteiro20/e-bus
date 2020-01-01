@@ -14,11 +14,11 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cidades")
-@SequenceGenerator(name = "seq_cidade_id", sequenceName = "seq_cidade_id", allocationSize = 1)
+@SequenceGenerator(name = "cidades_sequence", sequenceName = "cidades_sequence", allocationSize = 1)
 public class Cidade {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_cidade_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cidades_sequence")
 	@Column(name = "id_cidade")
 	private Integer id;
 	
@@ -30,13 +30,16 @@ public class Cidade {
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
 	
+	public Cidade() {
+
+	}
+	
+	public Cidade(Integer id) {
+		this.id = id;
+	}
 	
 	public Integer getId() {
 		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getNome() {
@@ -57,7 +60,7 @@ public class Cidade {
 
 	@Override
 	public String toString() {
-		return nome;
+		return "Cidade [" + nome + "]";
 	}
 
 	@Override

@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ebus.model.Trecho;
-import com.ebus.repository.TrechosRepository;
+import com.ebus.repository.TrechoRepository;
 
 @RestController
 @RequestMapping("/trechos")
 public class TrechosResource {
 
 	@Autowired
-	private TrechosRepository trechosRepository;
+	private TrechoRepository trechoRepository;
 	
 	@GetMapping
-	public List<Trecho> listar() {
-		return trechosRepository.findAll();
+	public List<Trecho> pesquisa() {
+		return trechoRepository.findAll();
 	}
 	
 }

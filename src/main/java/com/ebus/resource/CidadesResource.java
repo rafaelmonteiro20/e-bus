@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,24 +16,23 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ebus.model.Cidade;
-import com.ebus.repository.CidadesRepository;
+import com.ebus.repository.CidadeRepository;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/cidades")
 public class CidadesResource {
 
 	@Autowired
-	private CidadesRepository cidadesRepository;
+	private CidadeRepository cidadeRepository;
 	
 	@GetMapping
-	public List<Cidade> findAll() {
-		return cidadesRepository.findAll();
+	public List<Cidade> pesquisa() {
+		return cidadeRepository.findAll();
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> create(@Valid @RequestBody Cidade cidade) {
-		cidade = cidadesRepository.save(cidade);
+	public ResponseEntity<?> salva(@Valid @RequestBody Cidade cidade) {
+		cidade = cidadeRepository.save(cidade);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 							.buildAndExpand(cidade.getId()).toUri();
@@ -43,8 +41,8 @@ public class CidadesResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> findOne(@PathVariable Integer id) {
-		Cidade cidade = cidadesRepository.findOne(id);
+	public ResponseEntity<?> buscaPorId(@PathVariable Integer id) {
+		Cidade cidade = cidadeRepository.findOne(id);
 		return cidade == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(cidade);
 	}
 	
