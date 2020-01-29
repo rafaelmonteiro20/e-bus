@@ -24,10 +24,12 @@ public class Trecho {
 	@Column(name = "id_trecho")
 	private Integer id;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_cidade_origem")
 	private Cidade origem;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_cidade_destino")
 	private Cidade destino;
