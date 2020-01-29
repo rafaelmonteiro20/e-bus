@@ -35,9 +35,11 @@ public class CidadeRepositoryImpl implements CidadeRepositoryQuery {
 		Root<Cidade> root = criteria.from(Cidade.class);
 		
 		criteria.where(criaRestricoes(filtro, builder, root));
+		criteria.orderBy(builder.asc(root.get("nome")));
 		
 		TypedQuery<Cidade> query = manager.createQuery(criteria);
 		addRestricoesDePaginacao(query, pageable);
+		
 		
 		return new PageImpl<>(query.getResultList(), pageable, count(filtro));
 	}
