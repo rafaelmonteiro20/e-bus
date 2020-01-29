@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,11 @@ public class CidadesResource {
 	@GetMapping
 	public List<Cidade> pesquisa() {
 		return cidadeRepository.findAll();
+	}
+	
+	@GetMapping(params = "autocomplete")
+	public List<Cidade> pesquisaPorNome(@PathParam("nome") String nome) {
+		return cidadeRepository.findByNomeContainingIgnoreCase(nome);
 	}
 	
 	@PostMapping
