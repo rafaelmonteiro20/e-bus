@@ -2,6 +2,7 @@ package com.ebus.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -42,8 +43,13 @@ public class CidadesResource {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> buscaPorId(@PathVariable Integer id) {
-		Cidade cidade = cidadeRepository.findOne(id);
-		return cidade == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(cidade);
+		Optional<Cidade> cidade = cidadeRepository.findById(id);
+		
+		if (cidade.isPresent()) {
+			return ResponseEntity.ok(cidade);
+		}
+		
+		return ResponseEntity.notFound().build(); 
 	}
 	
 }
